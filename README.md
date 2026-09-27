@@ -1,121 +1,145 @@
-# Awesome-Edge-Computing-Platform
+<p align="center">
+  <img src="assets/banner.svg" alt="Awesome Edge Computing Platform Banner" width="100%">
+</p>
 
-## Top Edge Computing Platforms Ecosystem
+# Awesome Edge Computing Platform 🚀
 
-**Curated List of SaaS Products & Open-Source GitHub Projects**
-*Focused on Edge Functions, WebAssembly Runtimes, Global Distributed Computing & Serverless Architectures*
-**Last updated: September 2026**
-
-This repository tracks notable **SaaS platforms** and **open-source projects** for **Edge Computing**. These tools help developers run code closer to users, reduce latency, improve performance, and build globally distributed serverless applications.
-
-**Examples** include Cloudflare Workers, Fastly Compute, Vercel Edge Functions, Netlify Edge Functions, Deno Deploy, Akamai EdgeWorkers, Fermyon Cloud, Edgio Applications, Fly.io, and Render Edge (the category leaders).
-
-**Open-source emphasis**: The open-source ecosystem for edge computing is **polarized**. Commercial platforms (Cloudflare, Fastly, Vercel) dominate the market, but open-source alternatives have matured at the **WebAssembly runtime** level (WasmEdge, wasmCloud) and **Kubernetes-native edge orchestration** level (KubeEdge). This section focuses on **self-hostable Wasm runtimes**, **edge orchestration frameworks**, and **edge function engines**.
-
-Contributions welcome! Open a PR to add/update entries. Keep descriptions factual and link to official sites.
-
-## Table of Contents
-
-- [SaaS/Hosted Platforms](#saas-hosted-platforms)
-- [Open-Source GitHub Projects](#open-source-github-projects)
-- [How to Contribute](#how-to-contribute)
-- [Disclaimer](#disclaimer)
-
-## SaaS/Hosted Platforms
-
-- **[Cloudflare Workers](https://workers.cloudflare.com/)**
-  The most widely adopted edge computing platform. JavaScript/TypeScript runtime based on V8 isolates with near-zero cold starts. Supports Durable Objects, Cron Triggers, KV storage, and R2 object storage. Worker scripts run across Cloudflare's 300+ data centers globally. Has migrated from Cloudflare Pages to a unified Workers architecture .
-
-- **[Fastly Compute](https://www.fastly.com/products/edge-compute)**
-  WebAssembly-based edge computing platform. Uses the open-source Lucet compiler and Wasmtime runtime for extremely fast cold starts. Supports Rust, JavaScript, Go, and other languages. Acquired Fanout in 2024 to add WebSockets and real-time push capabilities, enabling one-to-many broadcast and HTTP push .
-
-- **[Vercel Edge Functions](https://vercel.com/docs/functions/edge-functions)**
-  Edge function platform for modern web frameworks (Next.js). As of March 2025, Edge Runtime execution is limited to **300 seconds**, including streaming responses and `waitUntil()` post-processing tasks. However, Edge Functions are now **deprecated**, replaced by Vercel Functions and Routing Middleware running on Fluid compute infrastructure .
-
-- **[Netlify Edge Functions](https://www.netlify.com/products/edge/)**
-  Edge function platform built on the **Deno runtime**. Supports JavaScript/TypeScript to modify network requests, localize content, authenticate users, and redirect visitors. Edge functions are version-controlled, built, and deployed alongside the site, benefiting from Deploy Previews and rollback capabilities. Real-time logs with Log Drains integration for third-party monitoring .
-
-- **[Deno Deploy](https://deno.com/deploy)**
-  Global edge hosting platform built on the Deno runtime. Supports one-click deployment of Deno apps to a global edge network with built-in telemetry and CI/CD tooling. Automatically detects configuration from GitHub repositories and deploys, with Logs, Traces, and Metrics observability tools .
-
-- **[Akamai EdgeWorkers](https://www.akamai.com/products/edgeworkers)**
-  Event-driven serverless platform embedded directly into the CDN. JavaScript (V8) runtime executing on Akamai's thousands of edge nodes. Focused on **traffic orchestration**: request routing, A/B testing, auth token validation, cache key customization. Execution time **<10 seconds** with low CPU/memory limits, optimized for CDN traffic handling rather than general-purpose compute. Pairs with EdgeKV for edge data storage .
-
-- **[Fermyon Cloud](https://www.fermyon.com/cloud)**
-  Multi-tenant, globally distributed serverless function engine based on WebAssembly, running on Akamai Cloud. **Cold starts at 0.52 milliseconds**, supporting Rust, Go, JavaScript, Python, TypeScript, and more. `spin aka deploy` deploys to Akamai's global network with one command. Suitable for AI inference, traffic mirroring, and similar scenarios .
-
-- **[Edgio Applications](https://edg.io/)**
-  Edge application platform (formerly Layer0). Provides edge functions, CDN, and performance optimization capabilities.
-
-- **[Fly.io](https://fly.io/)**
-  Distributed application platform that runs containerized apps at edge locations close to users. Launched **Sprites** in 2026 (disposable cloud computers) designed specifically for AI agents, with MCP integration and progressive CLI disclosure .
-
-- **[Render Edge](https://render.com/)**
-  Fully managed cloud platform offering web services, WebSocket support, and edge computing capabilities. Render does not enforce a maximum WebSocket connection duration, but instance restarts or platform maintenance may interrupt connections, requiring clients to implement exponential backoff reconnection logic .
-
-## Open-Source GitHub Projects
-
-### WebAssembly Runtimes & Engines
-
-- **[WasmEdge](https://github.com/WasmEdge/WasmEdge)**
-  Lightweight, high-performance, extensible WebAssembly runtime for cloud-native, edge, and decentralized applications. Supports serverless apps, embedded functions, microservices, smart contracts, and IoT devices. CNCF sandbox project, with Debian providing a `libwasmedge0` package .
-
-- **[wasmCloud](https://github.com/wasmCloud/wasmCloud)**
-  Universal application platform that compiles code to WebAssembly components runnable anywhere—from laptop to edge to cloud. Built on the **Wasmtime** runtime, with components communicating through interfaces and a lattice providing a self-forming, self-healing mesh network. **Relationship to Kubernetes**: wasmCloud is to WebAssembly components what Kubernetes is to containers. Can run standalone or integrate with Kubernetes via an Operator .
-
-- **[SpinKube](https://github.com/spinkube/spinkube)**
-  Open-source project for deploying and running Wasm workloads on Kubernetes. Combines **Spin Operator**, **runwasi**, and **runtime class manager**. Wasm artifacts are much smaller than container images, start faster, and consume fewer resources at idle. Integrates with Kubernetes primitives: DNS, probes, autoscaling, metrics. CNCF sandbox project .
-
-- **[NovaCompute](https://github.com/anand-exe7/NovaCompute)**
-  Multi-tenant Wasm serverless edge engine written in pure Go. **Zero Docker, zero cold starts**. Built on wazero (pure Go Wasm engine, WASI Snapshot Preview 1). Features memory hot-pool manager (sub-millisecond execution), weighted semaphore backpressure (max 10 concurrent), GC eviction (10-minute TTL), PostgreSQL + Redis dual storage, and multi-tenant sliding window rate limiting. Deployable to AWS, bare metal, GCP, or Kubernetes .
-
-### Edge Orchestration & Kubernetes
-
-- **[KubeEdge](https://github.com/kubeedge/kubeedge)**
-  CNCF graduated project, Kubernetes-native edge computing framework. Extends containerized application orchestration to edge hosts with cloud-edge synergy. **Edge autonomy**: nodes continue operating independently when disconnected. Memory footprint around **70MB**. Supports x86, ARMv7, ARMv8. Latest version v1.22.0 (November 2025).
-
-- **[Baetyl](https://github.com/baetyl/baetyl)**
-  LF Edge project (donated by Baidu) that seamlessly extends cloud computing, data, and services to edge devices. Built-in support for 30+ industrial protocols and MLflow AI inference integration. China's first open-source edge computing platform.
-
-- **[EVE-OS (Project EVE)](https://github.com/lf-edge/eve)**
-  LF Edge edge virtualization engine contributed by ZEDEDA. Open, neutral, standardized architecture for orchestrating cloud-native applications at enterprise on-premises edge. Provides hardware-assisted virtualization and container/K8s runtimes with declarative APIs supporting intermittent connectivity and disconnected operations.
-
-### Edge Functions & Serverless
-
-- **[OpenFaaS](https://github.com/openfaas/faas)**
-  Open-source serverless framework for running functions on Kubernetes. Supports any language packaged as Docker containers. Deployable to edge nodes.
-
-- **[Knative](https://github.com/knative/serving)**
-  Serverless platform on Kubernetes. Provides request-driven autoscaling and event-driven architecture, runnable on edge Kubernetes clusters.
-
-- **[Nuclio](https://github.com/nuclio/nuclio)**
-  High-performance serverless framework focused on real-time data processing and AI inference. Supports Kubernetes and edge deployments.
-
-### Additional Strong Open-Source Options
-
-- **WebAssembly Runtimes**: **WasmEdge** (CNCF sandbox, lightweight), **wasmCloud** (universal application platform), **Wasmtime** (Bytecode Alliance, wasmCloud's foundation), **wasmer** (high-performance Wasm runtime).
-- **Edge Kubernetes**: **KubeEdge** (CNCF graduated, edge autonomy), **K3s** (lightweight Kubernetes), **MicroK8s** (Canonical).
-- **Edge Serverless**: **OpenFaaS**, **Knative**, **Nuclio**, **NovaCompute** (pure Go Wasm engine).
-- **Edge Orchestration**: **Baetyl** (LF Edge, industrial protocols), **EVE-OS** (edge virtualization), **SpinKube** (Wasm on Kubernetes).
-
-**Frameworks for building custom systems**: Combine **wasmCloud** or **WasmEdge** as the Wasm runtime core, **KubeEdge** or **SpinKube** for Kubernetes-native edge orchestration, **NovaCompute** for multi-tenant Wasm function execution, and **OpenFaaS** or **Knative** for serverless function management. Add **NATS** for lattice communication and **PostgreSQL + Redis** for persistence.
-
-## How to Contribute
-
-1. Fork the repo.
-2. Add/edit entries in `README.md` (follow existing format).
-3. Include: name, link, 1–2 sentence description, and whether it's SaaS or open-source.
-4. Submit PR with a short explanation.
-
-Star the repo if you find it useful!
-
-## Disclaimer
-
-- This is a **community-curated** list — not exhaustive and not an endorsement.
-- Edge computing platforms handle potentially sensitive application and user data; ensure compliance with relevant data protection regulations.
-- **Open-source reality**: The open-source ecosystem is mature at the **WebAssembly runtime** level (WasmEdge, wasmCloud) and **Kubernetes edge orchestration** level (KubeEdge), but lacks direct open-source alternatives to **fully managed edge function platforms** (Cloudflare Workers, Vercel Edge Functions). Self-hosted solutions require engineering teams to manage distributed infrastructure, global routing, and runtime security.
+<p align="center">
+  <a href="https://github.com/ishandutta2007/Awesome-Awesome-Awesome"><img src="https://img.shields.io/badge/Awesome-%E2%9C%94-blueviolet?style=flat-square&logo=github" alt="Awesome"/></a><a href="https://discord.gg/jc4xtF58Ve"><img src="https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Discord" /></a>
+  <a href="https://github.com/ishandutta2007/Awesome-Edge-Computing-Platform"><img src="https://img.shields.io/github/stars/ishandutta2007/Awesome-Edge-Computing-Platform?style=flat-square&color=gold" alt="GitHub Stars"/></a>
+  <a href="https://github.com/ishandutta2007/Awesome-Edge-Computing-Platform/network/members"><img src="https://img.shields.io/github/forks/ishandutta2007/Awesome-Edge-Computing-Platform?style=flat-square&color=blue" alt="GitHub Forks"/></a>
+  <a href="https://github.com/ishandutta2007/Awesome-Edge-Computing-Platform/blob/main/LICENSE"><img src="https://img.shields.io/github/license/ishandutta2007/Awesome-Edge-Computing-Platform?style=flat-square&color=green" alt="License"/></a>
+  <a href="https://github.com/ishandutta2007"><img alt="GitHub followers" src="https://img.shields.io/github/followers/ishandutta2007?label=Follow" /></a>
+</p>
 
 ---
 
-**Made for edge computing engineers, serverless developers, platform architects, and web performance teams.**
-Let's make edge computing more open, portable, and performant.
+## 💡 Overview & Market Insights 📊
+
+Welcome to the definitive ecosystem guide for **Edge Computing Platforms**, **WebAssembly (Wasm) Runtimes**, **Distributed Cloud Infrastructure**, and **Serverless Edge Functions**! 🌐⚡
+
+### 📈 Market Size & Industry Dynamics
+
+> [!NOTE]
+> The global **Edge Computing market** is projected to grow from **$250+ Billion in 2026** to over **$1+ Trillion by 2035**, driven by real-time AI inference, IoT endpoints, 5G deployments, and low-latency serverless requirements.
+> 
+> The competitive landscape is currently **moderately fragmented**. Centralized hyperscalers (AWS, GCP, Azure), specialized global edge networks (Cloudflare, Fastly, Akamai), and container runtime innovations (WebAssembly, Kubernetes Edge Orchestration) compete across different tiers of the edge computing stack.
+
+---
+
+## 📑 Table of Contents 📌
+
+- [☁️ SaaS & Hosted Edge Platforms](#️-saas--hosted-edge-platforms)
+- [🔓 Open-Source GitHub Projects](#-open-source-github-projects)
+  - [⚙️ WebAssembly Runtimes & Engines](#️-webassembly-runtimes--engines)
+  - [☸️ Edge Kubernetes & Orchestration](#️-edge-kubernetes--orchestration)
+  - [⚡ Edge Functions & Serverless Frameworks](#-edge-functions--serverless-frameworks)
+- [🤝 How to Contribute](#-how-to-contribute)
+- [☕ Support & Sponsorship](#-support--sponsorship)
+- [📈 Star History](#-star-history)
+- [⚠️ Disclaimer](#️-disclaimer)
+
+---
+
+## ☁️ SaaS & Hosted Edge Platforms 🏢
+
+The following curated table compares leading commercial SaaS products for edge functions, Wasm deployment, and distributed edge computing. Platforms are sorted by enterprise scale, revenue, and valuation (descending).
+
+| Platform 🚀 | Market Scale / Valuation 💰 | Starting Paid Price 💳 | Free Tier Limits 🎁 | Key Strengths & Core Features 🌟 |
+| :--- | :--- | :--- | :--- | :--- |
+| **[Cloudflare Workers](https://workers.cloudflare.com/)** ⚡ | **$125B Valuation** ($2.86B ARR) | $5.00 / month | 100,000 requests/day, 10ms CPU time/request | V8 isolates runtime, sub-millisecond cold starts, Durable Objects, KV, R2, 300+ global PoPs. |
+| **[Akamai EdgeWorkers](https://www.akamai.com/products/edgeworkers)** 🌐 | **$16B Valuation** ($4.32B ARR) | Contract / Custom Tier | 30-Day Free Trial (or Free Evaluation Tier in Control Center) | CDN-embedded JavaScript runtime, traffic orchestration, A/B testing, auth token validation, paired with EdgeKV. |
+| **[Vercel Edge Functions](https://vercel.com/docs/functions/edge-functions)** 📐 | **$9.3B Valuation** ($500M ARR) | $20.00 / seat / month | 1M invocations/mo, 4 CPU-hours/mo, 360 GB-hours memory | Frontend framework integration (Next.js), Fluid Compute architecture, instant deployment preview workflows. |
+| **[Fastly Compute](https://www.fastly.com/products/edge-compute)** ⏩ | **$4.0B Valuation** ($732M ARR) | $0.50 / M requests (Pay-as-you-go) | 10 Million Compute requests/month free | Lucet/Wasmtime WebAssembly runtime, microsecond cold starts, WebSockets, HTTP push capabilities. |
+| **[Deno Deploy](https://deno.com/deploy)** 🦕 | High-Growth ($20M+ Series A) | $20.00 / month (Pro Plan) | 1 Million requests/mo, 20 GiB egress, 10 CPU-hours | Native Deno/TypeScript edge runtime, built-in KV, global edge distribution, zero config deployment. |
+| **[Fly.io](https://fly.io/)** 🎈 | High-Growth ($70M+ Series B) | $5.00 / month (Hobby Minimum) | $5.00/mo credit trial (Legacy plans contain free allowances) | Containerized app distribution close to users, Sprites AI micro-VMs, Fly Postgres, multi-region deployment. |
+| **[Fermyon Cloud](https://www.fermyon.com/cloud)** 📦 | Venture-Backed ($20M+ Series A) | $19.38 / month (Growth Plan) | 5 Apps, 100,000 requests/mo, 1GB KV/SQLite storage | Spin Wasm engine on Akamai Cloud, 0.52ms cold starts, native AI inference, Rust/Go/JS/Python support. |
+| **[Render Edge](https://render.com/)** 🍀 | Venture-Backed ($50M+ Series B) | $7.00 / month (Starter Compute) | 750 free instance-hours/mo (Spins down after 15m idle) | Managed cloud web services, persistent WebSockets without connection caps, seamless Git deployments. |
+| **[Netlify Edge Functions](https://www.netlify.com/products/edge/)** 🌐 | Private / Mid-Market ($2B+ Valuation) | $9.00 / month (Personal Plan) | 300 credits/mo (~150k requests or 15GB bandwidth) | Deno-powered edge runtime, seamless CI/CD git integration, Deploy Previews, Log Drains telemetry. |
+| **[Edgio Applications](https://edg.io/)** 🏛️ | Acquired / Restructuring (Akamai) | N/A (Acquired / Inactive) | Legacy trial unavailable | Former Layer0 edge platform; operations transition to Akamai CDN & security infrastructure. |
+
+---
+
+## 🔓 Open-Source GitHub Projects 🛠️
+
+The open-source edge computing ecosystem provides powerful self-hostable WebAssembly runtimes, Kubernetes edge orchestrators, and serverless function engines. Sorted by **GitHub Star Counts** (descending).
+
+### ⚙️ WebAssembly Runtimes & Engines
+
+- **[k3s](https://github.com/k3s-io/k3s)** [<img src="https://img.shields.io/github/stars/k3s-io/k3s?style=social&color=white" alt="k3s Stars"/>](https://github.com/k3s-io/k3s/stargazers) 🌟
+  Lightweight Kubernetes distribution designed for IoT, Edge computing, and ARM architectures. Memory footprint under 100MB.
+- **[Wasmtime](https://github.com/bytecodealliance/wasmtime)** [<img src="https://img.shields.io/github/stars/bytecodealliance/wasmtime?style=social&color=white" alt="Wasmtime Stars"/>](https://github.com/bytecodealliance/wasmtime/stargazers) 🌟
+  Standalone WebAssembly runtime created by the Bytecode Alliance. Fast, secure, and configurable engine powering wasmCloud and Fastly Compute.
+- **[Wasmer](https://github.com/wasmerio/wasmer)** [<img src="https://img.shields.io/github/stars/wasmerio/wasmer?style=social&color=white" alt="Wasmer Stars"/>](https://github.com/wasmerio/wasmer/stargazers) 🌟
+  High-performance WebAssembly runtime supporting WASI and Emscripten, enabling universal binary execution across edge and desktop environments.
+- **[WasmEdge](https://github.com/WasmEdge/WasmEdge)** [<img src="https://img.shields.io/github/stars/WasmEdge/WasmEdge?style=social&color=white" alt="WasmEdge Stars"/>](https://github.com/WasmEdge/WasmEdge/stargazers) 🌟
+  CNCF sandbox lightweight, extensible WebAssembly runtime for cloud-native, edge serverless, and AI inference workloads.
+- **[wasmCloud](https://github.com/wasmCloud/wasmCloud)** [<img src="https://img.shields.io/github/stars/wasmCloud/wasmCloud?style=social&color=white" alt="wasmCloud Stars"/>](https://github.com/wasmCloud/wasmCloud/stargazers) 🌟
+  CNCF application platform for compiling code to Wasm components runnable anywhere from laptop to edge cluster with lattice networking.
+- **[NovaCompute](https://github.com/anand-exe7/NovaCompute)** [<img src="https://img.shields.io/github/stars/anand-exe7/NovaCompute?style=social&color=white" alt="NovaCompute Stars"/>](https://github.com/anand-exe7/NovaCompute/stargazers) 🌟
+  Pure Go multi-tenant Wasm serverless edge engine with sub-millisecond execution, zero cold starts, and PostgreSQL + Redis state management.
+
+### ☸️ Edge Kubernetes & Orchestration
+
+- **[MicroK8s](https://github.com/canonical/microk8s)** [<img src="https://img.shields.io/github/stars/canonical/microk8s?style=social&color=white" alt="MicroK8s Stars"/>](https://github.com/canonical/microk8s/stargazers) 🌟
+  Canonical's zero-ops, lightweight Kubernetes for edge devices, IoT gateways, and workstation development environments.
+- **[KubeEdge](https://github.com/kubeedge/kubeedge)** [<img src="https://img.shields.io/github/stars/kubeedge/kubeedge?style=social&color=white" alt="KubeEdge Stars"/>](https://github.com/kubeedge/kubeedge/stargazers) 🌟
+  CNCF graduated Kubernetes-native edge computing framework extending container orchestration to edge hosts with offline autonomy.
+- **[Baetyl](https://github.com/baetyl/baetyl)** [<img src="https://img.shields.io/github/stars/baetyl/baetyl?style=social&color=white" alt="Baetyl Stars"/>](https://github.com/baetyl/baetyl/stargazers) 🌟
+  LF Edge project extending cloud computing and AI inference to edge devices with native support for 30+ industrial protocols.
+- **[EVE-OS](https://github.com/lf-edge/eve)** [<img src="https://img.shields.io/github/stars/lf-edge/eve?style=social&color=white" alt="EVE-OS Stars"/>](https://github.com/lf-edge/eve/stargazers) 🌟
+  LF Edge virtualization engine (Project EVE) for secure cloud-native edge computing and on-premise hardware orchestration.
+- **[SpinKube](https://github.com/spinkube/spin-operator)** [<img src="https://img.shields.io/github/stars/spinkube/spin-operator?style=social&color=white" alt="SpinKube Stars"/>](https://github.com/spinkube/spin-operator/stargazers) 🌟
+  Open-source Kubernetes extension using Spin Operator and runwasi to execute WebAssembly workloads alongside standard containers.
+
+### ⚡ Edge Functions & Serverless Frameworks
+
+- **[NATS Server](https://github.com/nats-io/nats-server)** [<img src="https://img.shields.io/github/stars/nats-io/nats-server?style=social&color=white" alt="NATS Stars"/>](https://github.com/nats-io/nats-server/stargazers) 🌟
+  CNCF cloud-native messaging and edge event-streaming system powering distributed control planes, microservices, and Wasm mesh lattices.
+- **[OpenFaaS](https://github.com/openfaas/faas)** [<img src="https://img.shields.io/github/stars/openfaas/faas?style=social&color=white" alt="OpenFaaS Stars"/>](https://github.com/openfaas/faas/stargazers) 🌟
+  Popular open-source serverless framework for building and deploying function containers on Kubernetes and edge nodes.
+- **[Knative Serving](https://github.com/knative/serving)** [<img src="https://img.shields.io/github/stars/knative/serving?style=social&color=white" alt="Knative Stars"/>](https://github.com/knative/serving/stargazers) 🌟
+  Kubernetes-based serverless platform providing request-driven autoscaling, scale-to-zero, and event routing for edge clusters.
+- **[Nuclio](https://github.com/nuclio/nuclio)** [<img src="https://img.shields.io/github/stars/nuclio/nuclio?style=social&color=white" alt="Nuclio Stars"/>](https://github.com/nuclio/nuclio/stargazers) 🌟
+  High-performance serverless event and data processing platform optimized for real-time edge analytics and AI inference workloads.
+
+---
+
+## 🤝 How to Contribute 🛠️
+
+Contributions are welcome! Help us keep this directory accurate and up to date:
+
+1. 🍴 **Fork** this repository.
+2. ✏️ Add or update entries in `README.md` keeping formatting consistent.
+3. 📝 Ensure SaaS products include pricing, free tier limits, and scale information.
+4. 🔀 Open a **Pull Request** with a concise description of your additions.
+
+---
+
+## ☕ Support & Sponsorship 💗
+
+If you find this repository helpful, please consider supporting the project:
+
+- ⭐ **Star** this repository to increase its visibility.
+- 🔄 **Fork** and share it with your dev network and platform engineering teams.
+- 💖 **Sponsor** the maintainer on GitHub: [https://github.com/sponsors/ishandutta2007](https://github.com/sponsors/ishandutta2007)
+
+*Thank you for your support! Your encouragement helps keep this ecosystem directory maintained and active.* 🚀
+
+---
+
+## 📈 Star History 📊
+
+[![Star History Chart](https://star-history.dera.page/svg?repos=ishandutta2007/Awesome-Edge-Computing-Platform&type=date&legend=top-left)](https://star-history.dera.page/#ishandutta2007/Awesome-Edge-Computing-Platform&type=date&legend=top-left)
+
+---
+
+## ⚠️ Disclaimer 📜
+
+- This list is **community-curated** for informational and educational purposes.
+- Product features, pricing, and free tier limits change frequently; refer to official platform websites for up-to-date documentation.
+- Check out the master list of awesome lists at [Awesome-Awesome-Awesome](https://github.com/ishandutta2007/Awesome-Awesome-Awesome).
+
+---
+
+**Made with ❤️ for edge computing engineers, WebAssembly developers, and serverless architects.**
